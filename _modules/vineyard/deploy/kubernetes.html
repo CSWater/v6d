@@ -1,0 +1,597 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <link rel="shortcut icon" href="../../../_static/vineyard.ico"/><meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+        <title>vineyard.deploy.kubernetes - Vineyard</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/brands.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/v4-shims.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/panels.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+  <script>
+    document.body.dataset.theme = "light";
+  </script>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">Vineyard</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/vineyard-logo-h.png" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notes/getting-started.html">Getting Started</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user-guide.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/objects.html">Internals of Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/data-accessing.html">Shared Data Accessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/streams.html">Streams in Vineyard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/io-drivers.html">I/O Drivers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/distributed-learning.html">Distributed Learning with Vineyard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/adding-custom-datatypes-cpp.html">Adding Custom Data Types in C++</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Integrations</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../integrations.html">Integrations</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/dask.html">Dask on Vineyard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/ml.html">Machine Learning with Vineyard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/airflow.html">Airflow on Vineyard</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../deployment.html">Deployment</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/deploy-locally.html">Deploying on Linux/MacOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/deploy-docker.html">Deploying using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/deploy-kubernetes.html">Deploying on Kubernetes</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api-reference.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/python-api.html">Python API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/cpp-api.html">C++ API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/ctl.html">Vineyard Cli</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../community.html">Join the Community</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/contributing.html">Contributing to vineyard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notes/roadmap.html">Roadmap</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for vineyard.deploy.kubernetes</h1><div class="highlight"><pre>
+<span></span><span class="ch">#! /usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2020-2021 Alibaba Group Holding Limited.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">kubernetes</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">kubernetes</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="kn">from</span> <span class="nn">.etcd</span> <span class="kn">import</span> <span class="n">start_etcd_k8s</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ensure_kubernetes_namespace</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;vineyard&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="start_vineyardd"><a class="viewcode-back" href="../../../notes/python-api.html#vineyard.deploy.kubernetes.start_vineyardd">[docs]</a><span class="k">def</span> <span class="nf">start_vineyardd</span><span class="p">(</span>
+    <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;vineyard&#39;</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="s1">&#39;512Mi&#39;</span><span class="p">,</span>
+    <span class="n">socket</span><span class="o">=</span><span class="s1">&#39;/var/run/vineyard.sock&#39;</span><span class="p">,</span>
+    <span class="n">rpc_socket_port</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span>
+    <span class="n">vineyard_image</span><span class="o">=</span><span class="s1">&#39;vineyardcloudnative/vineyardd:latest&#39;</span><span class="p">,</span>
+    <span class="n">vineyard_image_pull_policy</span><span class="o">=</span><span class="s1">&#39;IfNotPresent&#39;</span><span class="p">,</span>
+    <span class="n">vineyard_image_pull_secrets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">k8s_client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Launch a vineyard cluster on kubernetes.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        namespace: str</span>
+<span class="sd">            namespace in kubernetes</span>
+<span class="sd">        size: int</span>
+<span class="sd">            The memory size limit for vineyard&#39;s shared memory. The memory size</span>
+<span class="sd">            can be a plain integer or as a fixed-point number using one of these</span>
+<span class="sd">            suffixes:</span>
+
+<span class="sd">            .. code::</span>
+
+<span class="sd">                E, P, T, G, M, K.</span>
+
+<span class="sd">            You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki.</span>
+
+<span class="sd">            For example, the following represent roughly the same value:</span>
+
+<span class="sd">            .. code::</span>
+
+<span class="sd">                128974848, 129k, 129M, 123Mi, 1G, 10Gi, ...</span>
+<span class="sd">        socket: str</span>
+<span class="sd">            The UNIX domain socket socket path that vineyard server will listen on.</span>
+<span class="sd">        rpc_socket_port: int</span>
+<span class="sd">            The port that vineyard will use to privode RPC service.</span>
+<span class="sd">        k8s_client: kubernetes.client.api.ApiClient</span>
+<span class="sd">            A kubernetes client. If not specified, vineyard will try to resolve the</span>
+<span class="sd">            kubernetes configuration from current context.</span>
+<span class="sd">        vineyard_image: str</span>
+<span class="sd">            The docker image of vineyardd to launch the daemonset.</span>
+<span class="sd">        vineyard_image_pull_policy: str</span>
+<span class="sd">            The docker image pull policy of vineyardd.</span>
+<span class="sd">        vineyard_image_pull_secrets: str</span>
+<span class="sd">            The docker image pull secrets of vineyardd.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of created kubernetes resources during the deploying process. The</span>
+<span class="sd">        resources can be later release using :meth:`delete_kubernetes_objects`.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        vineyard.deploy.kubernetes.delete_kubernetes_objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kubernetes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Please install the package python &quot;kubernetes&quot; first&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">k8s_client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kubernetes</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">load_kube_config</span><span class="p">()</span>
+        <span class="n">k8s_client</span> <span class="o">=</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ApiClient</span><span class="p">()</span>
+
+    <span class="n">created_objects</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ensure_kubernetes_namespace</span><span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="n">k8s_client</span><span class="o">=</span><span class="n">k8s_client</span><span class="p">)</span>
+    <span class="n">created_objects</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">start_etcd_k8s</span><span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="n">k8s_client</span><span class="o">=</span><span class="n">k8s_client</span><span class="p">))</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;vineyard.yaml.tpl&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Namespace&#39;</span><span class="p">:</span> <span class="n">namespace</span><span class="p">,</span>
+            <span class="s1">&#39;Size&#39;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
+            <span class="s1">&#39;Socket&#39;</span><span class="p">:</span> <span class="n">socket</span><span class="p">,</span>
+            <span class="s1">&#39;Port&#39;</span><span class="p">:</span> <span class="n">rpc_socket_port</span><span class="p">,</span>
+            <span class="s1">&#39;Image&#39;</span><span class="p">:</span> <span class="n">vineyard_image</span><span class="p">,</span>
+            <span class="s1">&#39;ImagePullPolicy&#39;</span><span class="p">:</span> <span class="n">vineyard_image_pull_policy</span><span class="p">,</span>
+            <span class="s1">&#39;ImagePullSecrets&#39;</span><span class="p">:</span> <span class="n">vineyard_image_pull_secrets</span>
+            <span class="k">if</span> <span class="n">vineyard_image_pull_secrets</span>
+            <span class="k">else</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">definitions</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">formatter</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">rendered</span><span class="p">:</span>
+        <span class="n">rendered</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">definitions</span><span class="p">)</span>
+        <span class="n">rendered</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">rendered</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">rendered</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="n">created_objects</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">kubernetes</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">create_from_yaml</span><span class="p">(</span>
+                <span class="n">k8s_client</span><span class="p">,</span> <span class="n">rendered</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">created_objects</span></div>
+
+
+<span class="k">def</span> <span class="nf">recursive_flatten</span><span class="p">(</span><span class="n">targets</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Flatten the given maybe nested list as a 1-level list.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_recursive_flatten_impl</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+                <span class="n">_recursive_flatten_impl</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">destination</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+
+    <span class="n">destination</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_recursive_flatten_impl</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">destination</span>
+
+
+<div class="viewcode-block" id="delete_kubernetes_objects"><a class="viewcode-back" href="../../../notes/python-api.html#vineyard.deploy.kubernetes.delete_kubernetes_objects">[docs]</a><span class="k">def</span> <span class="nf">delete_kubernetes_objects</span><span class="p">(</span>
+    <span class="n">targets</span><span class="p">,</span> <span class="n">k8s_client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Delete the given kubernetes resources.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        target: List</span>
+<span class="sd">            List of Kubernetes objects</span>
+<span class="sd">        k8s_client:</span>
+<span class="sd">            The kubernetes client. If not specified, vineyard will try to resolve</span>
+<span class="sd">            the kubernetes configuration from current context.</span>
+<span class="sd">        verbose: bool</span>
+<span class="sd">            Whether to print the deletion logs.</span>
+<span class="sd">        wait: bool</span>
+<span class="sd">            Whether to wait for the deletion to complete.</span>
+<span class="sd">        timeout_seconds: int</span>
+<span class="sd">            The timeout in seconds for waiting for the deletion to complete.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        vineyard.deploy.kubernetes.start_vineyardd</span>
+<span class="sd">        vineyard.deploy.kubernetes.delete_kubernetes_object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">recursive_flatten</span><span class="p">(</span><span class="n">targets</span><span class="p">):</span>
+        <span class="n">delete_kubernetes_object</span><span class="p">(</span>
+            <span class="n">target</span><span class="p">,</span>
+            <span class="n">k8s_client</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">,</span>
+            <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">delete_kubernetes_object</span><span class="p">(</span>
+    <span class="n">target</span><span class="p">,</span> <span class="n">k8s_client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Delete the given kubernetes resource.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        target: object</span>
+<span class="sd">            The Kubernetes objects that will be deleted.</span>
+<span class="sd">        k8s_client:</span>
+<span class="sd">            The kubernetes client. If not specified, vineyard will try to resolve</span>
+<span class="sd">            the kubernetes configuration from current context.</span>
+<span class="sd">        verbose: bool</span>
+<span class="sd">            Whether to print the deletion logs.</span>
+<span class="sd">        wait: bool</span>
+<span class="sd">            Whether to wait for the deletion to complete.</span>
+<span class="sd">        timeout_seconds: int</span>
+<span class="sd">            The timeout in seconds for waiting for the deletion to complete.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        vineyard.deploy.kubernetes.start_vineyardd</span>
+<span class="sd">        vineyard.deploy.kubernetes.delete_kubernetes_objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">delete_kubernetes_objects</span><span class="p">(</span>
+            <span class="n">target</span><span class="p">,</span> <span class="n">k8s_client</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">kubernetes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Please install the package python &quot;kubernetes&quot; first&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">k8s_client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kubernetes</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">load_kube_config</span><span class="p">()</span>
+        <span class="n">k8s_client</span> <span class="o">=</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ApiClient</span><span class="p">()</span>
+
+    <span class="sd">&quot;&quot;&quot;Perform a delete action on valid kubernetes API object (i.e. List, Service, etc).</span>
+<span class="sd">    Args:</span>
+<span class="sd">        api_client: ApiClient</span>
+<span class="sd">            An kubernetes ApiClient object, initialized with the client args.</span>
+<span class="sd">        target: A valid kubernetes object.</span>
+<span class="sd">        verbose: bool, optional</span>
+<span class="sd">            If True, print confirmation from the delete action. Defaults to False.</span>
+<span class="sd">        wait: bool, optional</span>
+<span class="sd">            Waiting for delete object. Defaults to False.</span>
+<span class="sd">        timeout_seconds: int, optional</span>
+<span class="sd">            If waiting for delete timeout, just print a error message. Defaults to 60.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Status: Return status for calls kubernetes delete method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">group</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">api_version</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">group</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="s2">&quot;core&quot;</span>
+    <span class="c1"># Take care for the case e.g. api_type is &quot;apiextensions.k8s.io&quot;</span>
+    <span class="c1"># Only replace the last instance</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.k8s.io&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># convert group name from DNS subdomain format to</span>
+    <span class="c1"># python class name convention</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">))</span>
+    <span class="n">fcn_to_call</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}{1}</span><span class="s2">Api&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">version</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+    <span class="n">k8s_api</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">fcn_to_call</span><span class="p">)(</span>
+        <span class="n">k8s_client</span>
+    <span class="p">)</span>  <span class="c1"># pylint: disable=not-callable</span>
+
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">kind</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;(.)([A-Z][a-z]+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1_\2&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">)</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;([a-z0-9])([A-Z])&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1_\2&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Expect the user to create namespaced objects more often</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">k8s_api</span><span class="p">,</span> <span class="s2">&quot;delete_namespaced_</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">)):</span>
+            <span class="c1"># Decide which namespace we are going to put the object in, if any</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;namespace&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">namespace</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">k8s_api</span><span class="p">,</span> <span class="s2">&quot;delete_namespaced_</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;namespace&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">k8s_api</span><span class="p">,</span> <span class="s2">&quot;delete_</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">rest</span><span class="o">.</span><span class="n">ApiException</span><span class="p">:</span>
+        <span class="c1"># Object already deleted.</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># waiting for delete</span>
+        <span class="k">if</span> <span class="n">wait</span><span class="p">:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">k8s_api</span><span class="p">,</span> <span class="s2">&quot;read_namespaced_</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">)):</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="nb">getattr</span><span class="p">(</span><span class="n">k8s_api</span><span class="p">,</span> <span class="s2">&quot;read_namespaced_</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">rest</span><span class="o">.</span><span class="n">ApiException</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">ex</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                                <span class="s2">&quot;Deleting </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> failed: </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="n">kind</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">timeout_seconds</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                                <span class="s2">&quot;Deleting </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> timeout&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="n">kind</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> deleted.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot; status=&#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">resp</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;start_vineyardd&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;delete_kubernetes_object&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;delete_kubernetes_objects&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2019-2022, The Vineyard Authors
+            </div>
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link fa fa-solid fa-github fa-2x" href="https://github.com/v6d-io/v6d" aria-label="GitHub"></a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/furo.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>
